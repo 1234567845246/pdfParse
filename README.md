@@ -124,3 +124,50 @@ python main.py "file1.pdf" "file2.pdf" "file3.pdf" --format json --merge --outpu
 
 - Python >= 3.6
 - PyMuPDF (fitz)
+
+## JSON字段转换工具 (tranjson.py)
+
+这是一个配套工具，用于将提取的JSON数据中的中文字段名转换为英文，使数据更适合国际化使用。
+
+### 功能特点
+
+- 自动将JSON文件中的中文key转换为对应的英文key
+- 保持原有的数据结构和值不变
+- 支持自定义输出路径
+- 保持JSON格式化输出，便于阅读
+
+### 字段映射关系
+
+当前支持以下字段的自动转换：
+- 序号 -> number
+- 发音 -> pronunciation
+- 音调 -> tone
+- 单词 -> word
+- 词性 -> part_of_speech
+- 释义 -> meaning
+- 笔记 -> note
+
+### 使用方法
+
+1. 基本使用（自动生成输出文件名）：
+```bash
+python tranjson.py "pdf/新标日初级下册.json"
+```
+将生成 `pdf/新标日初级下册_en.json`
+
+2. 指定输出文件路径：
+```bash
+python tranjson.py "pdf/新标日初级下册.json" -o "output.json"
+```
+
+### 参数说明
+
+- `input`：必需，输入JSON文件的路径
+- `-o, --output`：可选，输出JSON文件的路径。如果不指定，将在原文件名后添加"_en"后缀
+
+### 注意事项
+
+1. 输入文件必须是有效的JSON格式
+2. 如果遇到未在映射关系中定义的字段，将保持原样
+3. 转换过程会保持JSON的格式化和缩进
+4. 所有中文内容（值）保持不变，只转换字段名（key）
