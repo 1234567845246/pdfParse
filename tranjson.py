@@ -43,6 +43,9 @@ def process_json_file(input_path: str, output_path: str = None) -> None:
         with open(input_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
+        for idx,item in enumerate(data,start=1):
+            if isinstance(item,dict):
+                item["序号"] = idx;
         # 转换key
         converted_data = convert_keys(data)
 
